@@ -1,0 +1,41 @@
+﻿@using Pronia.Models
+
+@model List<Category>
+@{
+    int count = 0;
+}
+
+
+<div class="container">
+
+    <h1>Category</h1>
+    <a asp-action="Create" class="btn btn-submit">Create</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Product Count</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <th scope="row">@count</th>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Products.Count()</td>
+
+                </tr>
+            }
+           
+        </tbody>
+    </table>
+
+</div>
+
+
