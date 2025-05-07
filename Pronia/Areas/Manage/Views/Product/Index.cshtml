@@ -1,14 +1,15 @@
 ﻿@using Pronia.Models
 
-@model List<Category>
+@model List<Product>
 @{
     int count = 0;
 }
 
 
+
 <div class="container">
 
-    <h1>Category</h1>
+    <h1>Product</h1>
     <a asp-action="Create" class="btn btn-submit">Create</a>
     <table class="table">
         <thead>
@@ -16,8 +17,9 @@
                 <th scope="col">#</th>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
-                <th scope="col">Product Count</th>
-                
+                <th scope="col">CategoryName</th>
+                <th scope="col">Tags</th>
+
             </tr>
         </thead>
         <tbody>
@@ -28,20 +30,27 @@
                     <th scope="row">@count</th>
                     <td>@item.Id</td>
                     <td>@item.Name</td>
-                    <td>@item.Products?.Count()</td>
+                    <td>@item.Category.Name</td>
+                    <td>
+                        @foreach(var tagpro in item.TagProducts)
+                        {
+                            <p>
+                                @tagpro.Tag.Name
+                            </p>
+                        }
+                    </td>
                     <td>
 
                         <a class="btn btn-dark" asp-action="Update" asp-route-id="@item.Id">Update</a>
+                        <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 
                     </td>
 
                 </tr>
             }
-           
+
         </tbody>
     </table>
 
 </div>
-
-

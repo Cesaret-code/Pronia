@@ -16,10 +16,10 @@ namespace Pronia.Areas.Manage.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
-            List<Category> categories = _context.Categories.Include(x => x.Products).ToList();
+            List<Category> categories = await _context.Categories.Include(x => x.Products).ToListAsync();
 
 
             return View(categories);
@@ -31,13 +31,27 @@ namespace Pronia.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Category category)
+        public async Task<IActionResult> Create(Category category)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            return View();
+
+            await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            var category= await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+            if (category == null) { return BadRequest(); }
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
     }

@@ -9,9 +9,10 @@ namespace Pronia.Models
         public string Description { get; set; }
         [Required]
         public double Price { get; set; }
-        public List<ProductImage> Images { get; set; }
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public List<ProductImage>? Images { get; set; }
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
+        public List<TagProducts>? TagProducts { get; set; }
 
     }
 }
